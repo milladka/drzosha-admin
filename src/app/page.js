@@ -1,8 +1,17 @@
-export default function Home() {
-  return (
-    <div>
-      <h2 className="font-bold">سلام این جحکمله تستی است</h2>
+import LoginForm from "./components/home/loginForm";
 
-    </div>
+export async function generateMetadata() {
+  return {
+    title: "پنل مدیریت دکتر زوشا",
+    description: "با آشنایی با تخصص‌های دکتر زوشا، بهترین خدمات پزشکی را دریافت کنید. اطلاعات کامل درباره مهارت‌ها، تجربه‌ها و حوزه‌های درمانی تخصصی. ✅💙",
+  };
+}
+
+export default function Home() {
+
+  return (
+    <>
+      <LoginForm />
+    </>
   );
 }

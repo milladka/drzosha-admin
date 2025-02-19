@@ -7,7 +7,7 @@ export default function NotificationPanel() {
   const { notifications, removeNotification } = useNotificationStore();
 
   return (
-    <div className="fixed bottom-5 left-5 space-y-2">
+    <div className="fixed bottom-5 left-5 space-y-2 z-[100]">
       <AnimatePresence>
         {notifications.map((notif) => (
           <motion.div

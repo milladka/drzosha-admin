@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, Settings, Users, Menu, X } from "lucide-react";
+import { Home, Settings, Users, Menu, X,Ribbon,Stethoscope } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
@@ -28,9 +28,9 @@ const Sidebar = () => {
     useEffect(() => {
         setLoading(true);
         const timeout = setTimeout(() => setLoading(false), 500);
-        
+
         return () => clearTimeout(timeout);
-      }, [pathname]);
+    }, [pathname]);
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -45,9 +45,11 @@ const Sidebar = () => {
     }
 
     const menuItems = [
-        { name: "داشبورد", icon: <Home size={20} />, link: "/dashboard" },
-        { name: "کاربران", icon: <Users size={20} />, link: "/dashboard/profile" },
-        { name: "تنظیمات", icon: <Settings size={20} />, link: "#" },
+        { name: "داشبورد", icon: <Home size={18} />, link: "/dashboard" },
+        { name: "کاربران", icon: <Users size={18} />, link: "/dashboard/users" },
+        { name: "درخواست پزشکان", icon: <Ribbon size={18} />, link: "/dashboard/request_doctors" },
+        { name: "پزشک‌های فعال", icon: <Stethoscope size={18} />, link: "/dashboard/active_doctors" },
+        { name: "تنظیمات", icon: <Settings size={18} />, link: "#" },
     ];
 
     return (
@@ -71,7 +73,7 @@ const Sidebar = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isOpen ? 0.5 : 0 }}
                 transition={{ duration: 0.3, delay: isOpen ? 0.2 : 0 }}
-                className={`fixed inset-0 bg-slate-500 md:hidden ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+                className={`z-20 fixed inset-0 bg-slate-500 md:hidden ${isOpen ? "pointer-events-auto" : "pointer-events-none"}`}
                 onClick={toggleSidebar}
             ></motion.div>
             {/* Sidebar */}
@@ -79,10 +81,10 @@ const Sidebar = () => {
                 initial={{ x: 208 }}
                 animate={{ x: isOpen ? 0 : 208 }}
                 transition={{ duration: 0.3 }}
-                className="bg-gray-900 text-white h-screen w-52 fixed right-0 md:relative md:translate-x-0 z-10"
+                className="bg-gray-900 text-white h-screen w-52 fixed right-0 md:relative md:translate-x-0 z-30"
             >
                 <div className="p-4 flex justify-between items-center">
-                    <span className="text-lg font-bold">پنل مدیریت</span>
+                    <span className="text-md lg:text-lg font-bold">پنل مدیریت</span>
                     <X className="cursor-pointer md:hidden" onClick={toggleSidebar} />
                 </div>
                 <ul className="p-4">
@@ -95,19 +97,25 @@ const Sidebar = () => {
                                 ${pathname === item.link ? "bg-slate-800" : "hover:bg-gray-700"}`}
                         >
                             {item.icon}
-                            <span>{item.name}</span>
+                            <span className="text-xs">{item.name}</span>
                         </Link>
                     ))}
                 </ul>
             </motion.aside>
 
             {/* Menu Button for Mobile */}
-            <button
-                className="fixed top-5 right-5 p-2 text-gray-800 rounded-md md:hidden"
-                onClick={toggleSidebar}
-            >
-                <Menu size={24} />
-            </button>
+            <div className="min-h-12 p-2 bg-white border shadow w-full fixed md:hidden z-10">
+                <div className="flex justify-start items-center">
+                    <button
+                        className="p-2 text-gray-800 rounded-md"
+                        onClick={toggleSidebar}
+                    >
+                        <Menu size={24} />
+                    </button>
+                    <span className="text-lg font-bold">پنل مدیریت</span>
+                </div>
+
+            </div>
         </div>
     );
 };

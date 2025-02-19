@@ -1,4 +1,5 @@
 import axios from "axios";
+import { addNotification } from "../store/notificationStore";
 //import { setCookie } from "cookies-next";
 //import { toast } from "react-toastify";
 //import ERRORS from "@/app/constant/errors.json";
@@ -14,6 +15,7 @@ AxiosInstance.interceptors.response.use(
         } else {
             if (error.response && error.response.status == 400) {
                 //toast.error('درخواست شما قابل قبول نیست')
+                addNotification('درخواست شما پذیرفته نیست', true);
             }
             if (error?.response?.data?.message) {
                 // var error = ERRORS.find(item => item.key == error.response.data.message);
