@@ -1,10 +1,11 @@
 "use client"
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, Settings, Users, Menu, X,Ribbon,Stethoscope } from "lucide-react";
+import { Home, Settings, Users, Menu, X, Ribbon, Stethoscope, Hospital } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ const Sidebar = () => {
         { name: "کاربران", icon: <Users size={18} />, link: "/dashboard/users" },
         { name: "درخواست پزشکان", icon: <Ribbon size={18} />, link: "/dashboard/request_doctors" },
         { name: "پزشک‌های فعال", icon: <Stethoscope size={18} />, link: "/dashboard/active_doctors" },
-        { name: "تنظیمات", icon: <Settings size={18} />, link: "#" },
+        { name: "مراکز درمانی", icon: <Hospital size={18} />, link: "/dashboard/center_management" }
     ];
 
     return (
@@ -112,7 +113,10 @@ const Sidebar = () => {
                     >
                         <Menu size={24} />
                     </button>
-                    <span className="text-lg font-bold">پنل مدیریت</span>
+                    <div className="text-lg flex items-center gap-2 font-bold">
+                        <Image src="/logo.png" alt="دکتر زوشا" width={30} height={30} />
+                        <div>پنل مدیریت</div>
+                    </div>
                 </div>
 
             </div>

@@ -106,8 +106,8 @@ export default function RequestDoctorsPage() {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="8" className="py-4 text-center text-gray-500">
-                                        هیچ پزشکی یافت نشد.
+                                    <td colSpan="10" className="py-4 text-center text-gray-500">
+                                        هیچ پزشکی یافت نشد
                                     </td>
                                 </tr>
                             )}

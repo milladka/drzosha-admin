@@ -13,11 +13,11 @@ const DynamicSelect = ({ options, onSelect, label, selectedOption, error = false
     }, [selectedOption]);
 
     const showLabel = () => {
-        const objSelected = options.find(item => item.value === selected);
+        const objSelected = options && options.find(item => item.value === selected);
         return objSelected?.label || label || "یک گزینه انتخاب کنید";
     };
 
-    const filteredOptions = options.filter(option =>
+    const filteredOptions = options && options.filter(option =>
         option.label.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -56,7 +56,7 @@ const DynamicSelect = ({ options, onSelect, label, selectedOption, error = false
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <div className="max-h-40 overflow-y-auto">
-                        {filteredOptions.map(option => (
+                        {filteredOptions.length > 0 &&filteredOptions.map(option => (
                             <div
                                 key={option.value}
                                 className={`p-2 hover:bg-gray-100 cursor-pointer rounded text-sm text-slate-700 ${option.value == selected && 'bg-slate-200'}`}

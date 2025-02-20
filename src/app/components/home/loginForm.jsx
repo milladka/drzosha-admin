@@ -28,12 +28,22 @@ export default function LoginForm() {
   }, []);
 
   const handleSubmit = () => {
-    if (!email || !password) {
-      setError('ایمیل و رمز عبور را وارد کنید');
-      return;
-    }
     setError('');
 
+    if (!email || !password) {
+
+      setError('نام کاربری و رمز عبور را وارد کنید');
+      return;
+
+    } else {
+
+      if ((email == 'admin') && (password == 'admin')) {
+        router.push('/dashboard');
+      } else {
+        setError('نام کاربری و رمز عبور را اشتباه است');
+      }
+
+    }
     // ادامه فرایند لاگین
   };
 
@@ -44,7 +54,7 @@ export default function LoginForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="w-96 bg-white shadow-lg rounded-2xl p-6">
+        <div className="w-full lg:w-96 bg-white shadow-lg rounded-2xl p-6">
           <div className="text-center mb-6">
             <h2 className="text-xl font-bold">ورود به حساب</h2>
           </div>
@@ -53,8 +63,8 @@ export default function LoginForm() {
             <div className="relative">
               <Mail className="absolute left-3 top-3 text-gray-500" size={20} />
               <input
-                type="email"
-                placeholder="ایمیل"
+                type="text"
+                placeholder="نام کاربری"
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -72,7 +82,7 @@ export default function LoginForm() {
             </div>
             <button
               className="w-full bg-violet-500 text-white py-2 rounded-lg hover:bg-violet-600 transition"
-              onClick={() => router.push('/dashboard')}
+              onClick={() => handleSubmit()}
             >
               ورود
             </button>
