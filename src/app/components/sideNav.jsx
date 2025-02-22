@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, Settings, Users, Menu, X, Ribbon, Stethoscope, Hospital } from "lucide-react";
+import { Home, Users, Menu, X, Ribbon, Stethoscope, Hospital, Captions, TicketCheck, ListTodo, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
@@ -50,6 +50,9 @@ const Sidebar = () => {
         { name: "کاربران", icon: <Users size={18} />, link: "/dashboard/users" },
         { name: "درخواست پزشکان", icon: <Ribbon size={18} />, link: "/dashboard/request_doctors" },
         { name: "پزشک‌های فعال", icon: <Stethoscope size={18} />, link: "/dashboard/active_doctors" },
+        { name: "نوبت های پزشکان", icon: <ListTodo size={18} />, link: "/dashboard/registered_appointments" },
+        { name: "نوبت های رزرو شده", icon: <TicketCheck size={18} />, link: "/dashboard/last_appointments" },
+        { name: "تراکنش ها", icon: <Captions size={18} />, link: "/dashboard/transactions" },
         { name: "مراکز درمانی", icon: <Hospital size={18} />, link: "/dashboard/center_management" }
     ];
 
@@ -101,6 +104,13 @@ const Sidebar = () => {
                             <span className="text-xs">{item.name}</span>
                         </Link>
                     ))}
+                    <Link
+                        href={'/'}
+                        className={`transition-all mb-1 flex items-center gap-2 p-2 rounded-md cursor-pointer hover:bg-gray-700`}
+                    >
+                        <LogOut size={18} />
+                        <span className="text-xs">خروج</span>
+                    </Link>
                 </ul>
             </motion.aside>
 
