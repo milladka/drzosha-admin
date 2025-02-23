@@ -52,6 +52,7 @@ export default function CenterManagementPage() {
                                         <th className="text-xs xl:text-sm py-3 px-6 text-center">لینک</th>
                                         <th className="text-xs xl:text-sm py-3 px-6 text-center">دسته بندی</th>
                                         <th className="text-xs xl:text-sm py-3 px-6 text-center">شهر</th>
+                                        <th className="text-xs xl:text-sm py-3 px-6 text-center">عملیات</th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-gray-700 text-sm">
@@ -67,6 +68,7 @@ export default function CenterManagementPage() {
                                                 </td>
                                                 <td className="py-3 px-6 text-center">{item.category}</td>
                                                 <td className="py-3 px-6 text-center">{item.city}</td>
+                                                <td className="py-3 px-6 text-center"><Link href={`/dashboard/center_management/edit/${item.id}`}>ویرایش</Link></td>
                                             </tr>
                                         ))
                                     ) : (

@@ -19,3 +19,9 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.ck-source-editing-area,
+.ck-editor__editable {
+  min-height: 300px;
+  font-size: 13px;
+}
