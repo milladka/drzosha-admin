@@ -9,6 +9,21 @@ import DynamicSelect from "@/app/utils/dynamicSelect";
 import { LoadingButton } from "@/app/utils/loadingButton";
 import { addNotification } from "@/app/store/notificationStore";
 import { useRouter } from 'next/navigation'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import {
+    ClassicEditor,
+    BlockQuote,
+    Bold,
+    Essentials,
+    Heading,
+    Italic,
+    List,
+    Paragraph,
+    Underline
+} from 'ckeditor5';
+
+import translations from 'ckeditor5/translations/ar.js';
+import 'ckeditor5/ckeditor5.css';
 
 export default function NewCenterPage() {
     const router = useRouter();
@@ -291,7 +306,39 @@ export default function NewCenterPage() {
                         <div className="col-span-1 lg:col-span-3">
                             <div>
                                 <label className="mb-2 block text-sm pr-1" htmlFor="description">توضیحات</label>
-                                <textarea onChange={handleChange} value={data.description || ""} name="description" rows={5} id="description" className="outline-none text-sm border rounded w-full p-2 bg-white"></textarea>
+                                <CKEditor
+
+                                    editor={ClassicEditor}
+                                    onChange={(e, d) => handleSelectChange("description", d.getData())}
+                                    config={{
+                                        height: 400,
+                                        language: 'ar',
+                                        translations: [translations],
+                                        contentsLangDirection: 'rtl',
+                                        licenseKey: 'GPL',
+                                        plugins: [Essentials, Paragraph, Bold, Italic, BlockQuote,
+                                            Heading,
+                                            List,
+                                            Underline],
+                                        toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'underline', 'blockquote', 'heading', 'list'],
+                                        heading: {
+                                            options: [
+                                                {
+                                                    model: 'paragraph',
+                                                    title: 'پاراگراف',
+                                                    class: 'ck-heading_paragraph'
+                                                },
+                                                {
+                                                    model: 'heading2',
+                                                    view: 'h2',
+                                                    title: 'Heading 2',
+                                                    class: 'font-bold'
+                                                }
+                                            ]
+                                        },
+                                        initialData: data.description || "",
+                                    }}
+                                />
                                 {errors['description'] && <p className="text-red-500 text-[10px] p-1">{errors['description']}</p>}
                             </div>
                         </div>

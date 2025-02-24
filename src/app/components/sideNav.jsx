@@ -52,7 +52,7 @@ const Sidebar = () => {
         { name: "پزشک‌های فعال", icon: <Stethoscope size={18} />, link: "/dashboard/active_doctors" },
         { name: "نوبت های پزشکان", icon: <ListTodo size={18} />, link: "/dashboard/registered_appointments" },
         { name: "نوبت های رزرو شده", icon: <TicketCheck size={18} />, link: "/dashboard/last_appointments" },
-        { name: "تراکنش ها", icon: <Captions size={18} />, link: "/dashboard/transactions" },
+        { name: "تراکنش‌ها", icon: <Captions size={18} />, link: "/dashboard/transactions" },
         { name: "مراکز درمانی", icon: <Hospital size={18} />, link: "/dashboard/center_management" }
     ];
 
