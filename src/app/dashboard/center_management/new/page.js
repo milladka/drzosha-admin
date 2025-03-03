@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, UploadCloud } from "lucide-react";
+import { Map, Marker } from "pigeon-maps";
 import DynamicSelect from "@/app/utils/dynamicSelect";
 import { LoadingButton } from "@/app/utils/loadingButton";
 import { addNotification } from "@/app/store/notificationStore";
@@ -62,8 +63,8 @@ export default function NewCenterPage() {
             }
         ],
         center: '',
-        latitude: '',
-        longitude: '',
+        latitude: '35.69974649068366',
+        longitude: '51.33805975751824',
         category_id: null,
         image: '',
         submitLoading: false
@@ -307,7 +308,6 @@ export default function NewCenterPage() {
                             <div>
                                 <label className="mb-2 block text-sm pr-1" htmlFor="description">توضیحات</label>
                                 <CKEditor
-
                                     editor={ClassicEditor}
                                     onChange={(e, d) => handleSelectChange("description", d.getData())}
                                     config={{
@@ -341,6 +341,11 @@ export default function NewCenterPage() {
                                 />
                                 {errors['description'] && <p className="text-red-500 text-[10px] p-1">{errors['description']}</p>}
                             </div>
+                        </div>
+                        <div className="col-span-3 h-72">
+                            <Map onClick={(e) => setData((prev) => ({ ...prev, latitude: e.latLng[0], longitude: e.latLng[1] }))} defaultCenter={[Number(data.latitude), Number(data.longitude)]} defaultZoom={15}>
+                                <Marker width={50} anchor={[Number(data.latitude), Number(data.longitude)]} />
+                            </Map>
                         </div>
                         <div>
                             <div>
