@@ -1,31 +1,23 @@
 "use client"
-
 import AxiosInstance from "@/app/config/axiosInstance";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, UploadCloud } from "lucide-react";
-import { Map, Marker } from "pigeon-maps";
 import DynamicSelect from "@/app/utils/dynamicSelect";
 import { LoadingButton } from "@/app/utils/loadingButton";
 import { addNotification } from "@/app/store/notificationStore";
-import { useRouter } from 'next/navigation'
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import {
-    ClassicEditor,
-    BlockQuote,
-    Bold,
-    Essentials,
-    Heading,
-    Italic,
-    List,
-    Paragraph,
-    Underline
-} from 'ckeditor5';
-
-import translations from 'ckeditor5/translations/ar.js';
-import 'ckeditor5/ckeditor5.css';
-
+import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+const MapComponent = dynamic(
+    () => import('@/app/components/map'),
+    { ssr: false }
+)
+const Editor = dynamic(
+    () => import('@/app/components/editor'),
+    { ssr: false }
+)
 export default function NewCenterPage() {
     const router = useRouter();
     const [data, setData] = useState({
@@ -261,7 +253,7 @@ export default function NewCenterPage() {
                         <div>
                             <div>
                                 <label className="mb-2 block text-sm pr-1" htmlFor="slug">نامک</label>
-                                <input id="slug" value={data.slug || ""} onChange={handleChange} name="slug" dir="ltr" className="text-left outline-none text-sm border rounded w-full p-2 bg-white" />
+                                <input  style={{ fontFamily: 'sans-serif' }}  id="slug" value={data.slug || ""} onChange={handleChange} name="slug" dir="ltr" className="text-left outline-none text-sm border rounded w-full p-2 bg-white" />
                                 {errors['slug'] ? <p className="text-red-500 text-[10px] p-1">{errors['slug']}</p> : <span className="text-[10px] text-slate-400 block p-1">نامک بصورت انگلیسی وارد شود</span>}
                             </div>
                         </div>
@@ -307,45 +299,16 @@ export default function NewCenterPage() {
                         <div className="col-span-1 lg:col-span-3">
                             <div>
                                 <label className="mb-2 block text-sm pr-1" htmlFor="description">توضیحات</label>
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    onChange={(e, d) => handleSelectChange("description", d.getData())}
-                                    config={{
-                                        height: 400,
-                                        language: 'ar',
-                                        translations: [translations],
-                                        contentsLangDirection: 'rtl',
-                                        licenseKey: 'GPL',
-                                        plugins: [Essentials, Paragraph, Bold, Italic, BlockQuote,
-                                            Heading,
-                                            List,
-                                            Underline],
-                                        toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'underline', 'blockquote', 'heading', 'list'],
-                                        heading: {
-                                            options: [
-                                                {
-                                                    model: 'paragraph',
-                                                    title: 'پاراگراف',
-                                                    class: 'ck-heading_paragraph'
-                                                },
-                                                {
-                                                    model: 'heading2',
-                                                    view: 'h2',
-                                                    title: 'Heading 2',
-                                                    class: 'font-bold'
-                                                }
-                                            ]
-                                        },
-                                        initialData: data.description || "",
-                                    }}
-                                />
+                                <Suspense fallback={'...'}>
+                                    <Editor description={data.description || ""} onChange={(e, d) => handleSelectChange("description", d.getData())} />
+                                </Suspense>
                                 {errors['description'] && <p className="text-red-500 text-[10px] p-1">{errors['description']}</p>}
                             </div>
                         </div>
                         <div className="col-span-3 h-72">
-                            <Map onClick={(e) => setData((prev) => ({ ...prev, latitude: e.latLng[0], longitude: e.latLng[1] }))} defaultCenter={[Number(data.latitude), Number(data.longitude)]} defaultZoom={15}>
-                                <Marker width={50} anchor={[Number(data.latitude), Number(data.longitude)]} />
-                            </Map>
+                            <Suspense fallback={'...'}>
+                                <MapComponent latitude={data.latitude} longitude={data.longitude} onClick={(e) => setData((prev) => ({ ...prev, latitude: e.latLng[0], longitude: e.latLng[1] }))} />
+                            </Suspense>
                         </div>
                         <div>
                             <div>
