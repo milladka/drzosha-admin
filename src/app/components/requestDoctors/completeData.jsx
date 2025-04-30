@@ -145,7 +145,7 @@ export function CompleteData({ id }) {
 
     return (
         <>
-            <div className="flex flex-col items-center w-full mb-2">
+            <div className="flex flex-col items-center w-full mb-2 pb-10">
                 <label className="relative w-32 h-32 rounded-full overflow-hidden border-2 cursor-pointer">
                     <input type="file" className="hidden" onChange={handleImageChange} accept="image/*" />
                     {image ? (
@@ -189,7 +189,7 @@ export function CompleteData({ id }) {
                 <DynamicSelect selectedOption={data.city_id || ""} options={data.cities} onSelect={(value) => handleSelectChange("city_id", value)} label={'شهر پزشک را انتخاب کنید'} />
                 {errors.city_id && <p className="text-red-500 text-xs mt-1">{errors.city_id}</p>}
             </div>
-            <div className="mt-3">
+            <div className="mt-3 pb-72">
                 <button disabled={data.submitLoading} onClick={submitForm} className="flex items-center justify-center w-full text-center border rounded-md p-3 text-white text-sm bg-violet-800 hover:bg-violet-900">
                     {
                         data.submitLoading ?
